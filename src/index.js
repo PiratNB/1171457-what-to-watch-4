@@ -8,12 +8,15 @@ export const FilmInfo = {
   DATE: `2011 – ...`
 };
 
+const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
+
+
 ReactDOM.render(
     <App
       filmName={FilmInfo.NAME}
       filmGenre={FilmInfo.GENRE}
       filmDate={FilmInfo.DATE}
+      films={films}
     />,
     document.querySelector(`#root`)
 );
-
