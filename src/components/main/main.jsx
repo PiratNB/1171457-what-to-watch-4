@@ -5,7 +5,7 @@ const Main = (props) => {
   const {filmName, filmGenre, filmDate} = props;
 
   return (
-    <div>
+    <>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img
@@ -474,7 +474,7 @@ const Main = (props) => {
           </div>
         </footer>
       </div>
-    </div>
+    </>
   );
 };
 
