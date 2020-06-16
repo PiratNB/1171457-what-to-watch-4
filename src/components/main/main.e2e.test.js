@@ -32,7 +32,6 @@ describe(`MainComponent`, () => {
     const movieTitles = main.find(`a.small-movie-card__link`);
     movieTitles.forEach((it) => it.simulate(`click`));
 
-    expect(onMovieTitleClick).toBe(films.length);
-
+    expect(onMovieTitleClick).toBeCalledTimes(films.length);
   });
 });
