@@ -176,7 +176,7 @@ const Main = (props) => {
 Main.propTypes = {
   filmName: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
-  filmDate: PropTypes.number.isRequired,
+  filmDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired,
