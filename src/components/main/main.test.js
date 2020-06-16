@@ -5,7 +5,7 @@ import Main from "../main/main.jsx";
 const FilmInfo = {
   NAME: `American Horror Story`,
   GENRE: `Horror`,
-  DATE: `2011 – ...`
+  DATE: 2011,
 };
 
 const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
@@ -18,6 +18,7 @@ it(`Render App`, () => {
           filmGenre={FilmInfo.GENRE}
           filmDate={FilmInfo.DATE}
           films={films}
+          onTitleClick={() => {}}
         />
     )
     .toJSON();

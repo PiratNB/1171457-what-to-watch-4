@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const generateMovieCard = (film, index) => {
+const generateMovieCard = (film, index, onTitleClick) => {
   return (
     <article key={index} className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
         <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={film} width="280" height="175" />
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{film}</a>
+        <a className="small-movie-card__link" onClick={onTitleClick} href="movie-page.html">{film}</a>
       </h3>
     </article>
   );
 };
 
 const Main = (props) => {
-  const {filmName, filmGenre, filmDate, films} = props;
+  const {filmName, filmGenre, filmDate, films, onTitleClick} = props;
 
   return (
     <>
@@ -145,7 +145,7 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {films.map((film, index) => generateMovieCard(film, index))}
+            {films.map((film, index) => generateMovieCard(film, index, onTitleClick))}
           </div>
 
           <div className="catalog__more">
@@ -176,10 +176,11 @@ const Main = (props) => {
 Main.propTypes = {
   filmName: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
-  filmDate: PropTypes.string.isRequired,
+  filmDate: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired,
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 

@@ -5,11 +5,12 @@ import App from "./components/app/app.jsx";
 export const FilmInfo = {
   NAME: `American Horror Story`,
   GENRE: `Horror`,
-  DATE: `2011 – ...`
+  DATE: 2011,
 };
 
 const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
 
+const onMovieTitleClickHandler = () => {};
 
 ReactDOM.render(
     <App
@@ -17,6 +18,7 @@ ReactDOM.render(
       filmGenre={FilmInfo.GENRE}
       filmDate={FilmInfo.DATE}
       films={films}
+      onMovieTitleClick={onMovieTitleClickHandler}
     />,
     document.querySelector(`#root`)
 );
