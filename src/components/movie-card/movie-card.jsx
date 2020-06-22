@@ -1,21 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MovieCard = (props) => {
-  const {film, onTitleClick, onHover} = props;
+const getPoster = (title) => {
+  return title.toLowerCase().replace(`:`, ``).replace(/ /g, `-`);
+};
 
+const MovieCard = (props) => {
+  const {title, onTitleClick, onHover} = props;
+  const poster = `img/${getPoster(title)}.jpg`;
   return (
-    <article key={film.id} className="small-movie-card catalog__movies-card">
-      <div onMouseOver={onHover} className="small-movie-card__image">
-        <img src={film.poster} alt={film.title} width="280" height="175" />
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseOver={(evt) => {
+        onHover(evt.currentTarget);
+      }}
+    >
+      <div className="small-movie-card__image">
+        <img src={poster} alt={title} width="280" height="175"/>
       </div>
       <h3 className="small-movie-card__title">
         <a
-          onClick={onTitleClick}
           className="small-movie-card__link"
-          href={`/films/${film.id}`}
-        >
-          {film.title}
+          href="movie-page.html"
+          onClick={onTitleClick}
+        >{title}
         </a>
       </h3>
     </article>
@@ -23,13 +31,9 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
-  }).isRequired,
+  title: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
-  onHover: PropTypes.func.isRequired
+  onHover: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

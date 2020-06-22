@@ -10,42 +10,41 @@ class MovieList extends PureComponent {
     };
   }
 
-  setActiveFilm(film) {
-    this.setState({
-      activeFilm: film
-    });
-  }
-
   render() {
-    const {films} = this.props;
-
+    const {movies, onTitleClick} = this.props;
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => {
+        {movies.map((movie) => {
+          const key = `${movie.title.split(` `)[0]}-${movie.year}`;
           return (
             <MovieCard
-              key={film.id}
-              filmTitle={film.title}
-              filmImage={film.poster}
-              onTitleClick={() => {}}
-              onHover={this.onHover.bind(this, film.id)}
+              key={key}
+              title={movie.title}
+              year={movie.year}
+              onTitleClick={onTitleClick}
+              onHover={(currentCard) => {
+                if (this.state.activeCard === currentCard) {
+                  return;
+                }
+                this.setState({activeCard: currentCard});
+              }}
             />
           );
-        })}
+        })
+        }
       </div>
     );
   }
 }
 
 MovieList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
         title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
       })
-      .isRequired)
-    .isRequired
+  ),
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 export default MovieList;

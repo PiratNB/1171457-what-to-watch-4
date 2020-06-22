@@ -1,27 +1,15 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "../app/app.jsx";
+import App from "./app";
+import {movies, promoMovie} from "../../tests-data/tests-data";
 
-const FilmInfo = {
-  NAME: `American Horror Story`,
-  GENRE: `Horror`,
-  DATE: 2011,
-};
-
-const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
-
-it(`Render App`, () => {
+it(`Should App render correctly`, () => {
   const tree = renderer
-    .create(
-        <App
-          filmName = {FilmInfo.NAME}
-          filmGenre={FilmInfo.GENRE}
-          filmDate={FilmInfo.DATE}
-          films={films}
-          onMovieTitleClick={() => {}}
-        />
-    )
-    .toJSON();
+    .create(<App
+      promoMovie={promoMovie}
+      allMovies={movies}
+      onMovieTitleClick={() => {}}
+    />);
 
   expect(tree).toMatchSnapshot();
 });
