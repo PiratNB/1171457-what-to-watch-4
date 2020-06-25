@@ -27,6 +27,10 @@ class MovieList extends PureComponent {
                   return;
                 }
                 this.setState({activeCard: currentCard});
+                if (this.state.activeCard === !currentCard) {
+                  return;
+                }
+                this.setState({activeCard: null});
               }}
             />
           );

@@ -99,12 +99,10 @@ class Main extends PureComponent {
               </li>
             </ul>
 
-            {
-              <MovieList
-                movies={movies}
-                onTitleClick={onTitleClick}
-              />
-            }
+            <MovieList
+              movies={movies}
+              onTitleClick={onTitleClick}
+            />
 
             <div className="catalog__more">
               <button className="catalog__button" type="button">Show more</button>
