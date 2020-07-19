@@ -5,11 +5,12 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {connect} from "react-redux";
 import {getAllMovies, getPromoMovie} from "../../reducer/data/selectors";
-import {Operation as DataOperation} from "../../reducer/data/data";
+import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       displayedMovie: -1,
     };
@@ -18,6 +19,10 @@ class App extends PureComponent {
   }
 
   render() {
+    const {allMovies: movies} = this.props;
+    if (movies.length === 0) {
+      return (<h1>Данные загружаются</h1>);
+    }
     return (
       <BrowserRouter>
         <Switch>
@@ -26,8 +31,11 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-movie">
             <MoviePage
-              movie={this.props.allMovies[0]}
+              movie={movies[0]}
             />
+          </Route>
+          <Route exact path="/login">
+            <SignIn/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -48,6 +56,7 @@ class App extends PureComponent {
     return (
       <MoviePage
         movie={this.props.allMovies[displayedMovie]}
+        onMovieCardClick={this._handleMovieCardClick}
       />
     );
   }
@@ -56,11 +65,6 @@ class App extends PureComponent {
     const movieIndex = this.props.allMovies.findIndex((movie) => movie.id === movieId);
     this.setState({displayedMovie: movieIndex});
   }
-
-  componentDidMount() {
-    this.props.loadPromo();
-    this.props.loadMovies();
-  }
 }
 
 const mapStateToProps = (state) => ({
@@ -68,25 +72,16 @@ const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadMovies() {
-    dispatch(DataOperation.loadMovies());
-  },
-  loadPromo() {
-    dispatch(DataOperation.loadPromo());
-  },
-});
-
 App.propTypes = {
   promoMovie: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    genre: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
   }),
   allMovies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
-        genre: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        genre: PropTypes.string.isRequired,
         year: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,
         votes: PropTypes.number.isRequired,
@@ -95,9 +90,7 @@ App.propTypes = {
         description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       })
   ).isRequired,
-  loadPromo: PropTypes.func.isRequired,
-  loadMovies: PropTypes.func.isRequired,
 };
 
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

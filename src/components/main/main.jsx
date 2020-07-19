@@ -6,7 +6,7 @@ import Catalog from "../catalog/catalog.jsx";
 
 const Main = (props) => {
   const {promo, onMovieCardClick} = props;
-  // TODO: Сделать нормальную заглушку
+
   if (!promo) {
     return (<h1>Данные загружаются</h1>);
   }
@@ -18,10 +18,7 @@ const Main = (props) => {
     <>
       <section className="movie-card">
         <h1 className="visually-hidden">WTW</h1>
-        <Header
-          isMainPage={true}
-        >
-        </Header>
+        <Header/>
 
         <div className="movie-card__bg">
           <img src={background} alt={title}/>
@@ -72,7 +69,7 @@ const Main = (props) => {
 Main.propTypes = {
   promo: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    genre: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,

@@ -27,6 +27,7 @@ Array [
           <a
             className="logo__link"
             href="/"
+            onClick={[Function]}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -85,7 +86,7 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              D
             </span>
             <span
               className="movie-card__year"
@@ -171,6 +172,7 @@ Array [
                 <a
                   className="movie-nav__link"
                   href="#"
+                  onClick={[Function]}
                 >
                   Overview
                 </a>
@@ -181,6 +183,7 @@ Array [
                 <a
                   className="movie-nav__link"
                   href="#"
+                  onClick={[Function]}
                 >
                   Details
                 </a>
@@ -191,6 +194,7 @@ Array [
                 <a
                   className="movie-nav__link"
                   href="#"
+                  onClick={[Function]}
                 >
                   Reviews
                 </a>
@@ -267,14 +271,15 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -285,20 +290,21 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Fantastic Beasts: The Crimes of Grindelwald
+              The Grand Budapest Hotel
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Bohemian Rhapsody"
+            <video
               height="175"
-              src="img/bohemian-rhapsody.jpg"
               width="280"
             />
           </div>
@@ -315,14 +321,15 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Macbeth"
+            <video
               height="175"
-              src="img/macbeth.jpg"
               width="280"
             />
           </div>
@@ -339,14 +346,15 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Aviator"
+            <video
               height="175"
-              src="img/aviator.jpg"
               width="280"
             />
           </div>

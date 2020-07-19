@@ -3,32 +3,33 @@ import {ALL_GENRES_NAME} from "../../const";
 
 const movies = [
   {
-    genre: [`genre1`]
+    genre: `genre1`
   },
   {
-    genre: [`genre1`, `genre2`]
+    genre: `genre1`
   },
   {
-    genre: [`genre1`, `genre2`, `genre3`]
+    genre: `genre1`
   },
   {
-    genre: [`genre3`]
+    genre: `genre3`
   },
   {
-    genre: [`genre4`]
+    genre: `genre4`
   },
   {
-    genre: [`genre5`]
+    genre: `genre5`
   },
   {
-    genre: [`genre5`]
+    genre: `genre5`
   }
 ];
 
 describe(`Check app reducer work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
-      genre: ALL_GENRES_NAME
+      genre: ALL_GENRES_NAME,
+      loginStatus: false,
     });
   });
 
