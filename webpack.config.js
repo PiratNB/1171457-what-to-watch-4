@@ -4,14 +4,12 @@ module.exports = {
   entry: `./src/index.js`,
   output: {
     filename: `bundle.js`,
-    // eslint-disable-next-line no-undef
+    publicPath: `/`,
     path: path.join(__dirname, `public`)
   },
   devServer: {
-    // eslint-disable-next-line no-undef
     contentBase: path.join(__dirname, `public`),
-    open: true,
-    inline: true,
+    open: false,
     port: 1337,
     historyApiFallback: true,
   },

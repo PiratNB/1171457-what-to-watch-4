@@ -5,8 +5,8 @@
   "description": "Личный проект «Что посмотреть» от HTML Academy",
   "scripts": {
     "eslint": "eslint --ext .jsx --ext .js src/",
-    "test.jest": "jest",
     "test": "npm run eslint && npm run test.jest",
+    "test.jest": "jest",
     "build": "webpack --mode production",
     "start": "webpack-dev-server"
   },
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "axios": "0.19.2",
-    "moment": "^2.27.0",
-    "moment-duration-format": "^2.3.2",
+    "moment": "2.27.0",
+    "moment-duration-format": "2.3.2",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
