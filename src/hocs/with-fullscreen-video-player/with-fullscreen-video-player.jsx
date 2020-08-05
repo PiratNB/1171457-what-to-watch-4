@@ -11,7 +11,7 @@ const withFullscreenVideoPlayer = (Component) => {
 
       super(props);
 
-      this._videoRef = createRef();
+      this.videoRef = createRef();
 
       this.state = {
         duration: 0,
@@ -19,54 +19,16 @@ const withFullscreenVideoPlayer = (Component) => {
         isPlaying: false,
       };
 
-      this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
-      this._handleFullScreenButtonClick = this._handleFullScreenButtonClick.bind(this);
-      this._handleExitButtonClick = this._handleExitButtonClick.bind(this);
-    }
-
-    render() {
-      const {isPlaying, currentTime, duration} = this.state;
-      const togglerPosition = (currentTime / duration * 100) || 0;
-      const elapsedTime = transformDuration(duration - currentTime);
-
-      return (
-        <Component
-          isPlaying={isPlaying}
-          togglerPosition={togglerPosition}
-          elapsedTime={elapsedTime}
-          onPlayButtonClick={this._handlePlayButtonClick}
-          onFullscreenButtonClick={this._handleFullScreenButtonClick}
-          onExitButtonClick={this._handleExitButtonClick}
-        >
-          <video
-            ref={this._videoRef}
-            className="player__video"
-            preload="metadata"
-            onClick={this._handlePlayButtonClick}
-          />
-        </Component>
-      );
-    }
-
-    _handlePlayButtonClick() {
-      this.setState((state) => {
-        return {isPlaying: !state.isPlaying};
-      });
-    }
-
-    _handleFullScreenButtonClick() {
-      this._videoRef.current.requestFullscreen();
-    }
-
-    _handleExitButtonClick() {
-      window.history.back();
+      this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+      this.handleFullScreenButtonClick = this.handleFullScreenButtonClick.bind(this);
+      this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
     }
 
     componentDidMount() {
       this._isMounted = true;
       const {movie} = this.props;
       const {video: src, preview} = movie;
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
       video.src = src;
       video.poster = preview;
 
@@ -88,18 +50,56 @@ const withFullscreenVideoPlayer = (Component) => {
       };
     }
 
-    componentWillUnmount() {
-      this._isMounted = false;
-      this._videoRef = null;
-    }
-
     componentDidUpdate() {
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
       if (this.state.isPlaying) {
         video.play();
       } else {
         video.pause();
       }
+    }
+
+    componentWillUnmount() {
+      this._isMounted = false;
+      this.videoRef = null;
+    }
+
+    handlePlayButtonClick() {
+      this.setState((state) => {
+        return {isPlaying: !state.isPlaying};
+      });
+    }
+
+    handleFullScreenButtonClick() {
+      this.videoRef.current.requestFullscreen();
+    }
+
+    handleExitButtonClick() {
+      this.props.history.goBack();
+    }
+
+    render() {
+      const {isPlaying, currentTime, duration} = this.state;
+      const togglerPosition = (currentTime / duration * 100) || 0;
+      const elapsedTime = transformDuration(duration - currentTime);
+
+      return (
+        <Component
+          isPlaying={isPlaying}
+          togglerPosition={togglerPosition}
+          elapsedTime={elapsedTime}
+          onPlayButtonClick={this.handlePlayButtonClick}
+          onFullscreenButtonClick={this.handleFullScreenButtonClick}
+          onExitButtonClick={this.handleExitButtonClick}
+        >
+          <video
+            ref={this.videoRef}
+            className="player__video"
+            preload="metadata"
+            onClick={this.handlePlayButtonClick}
+          />
+        </Component>
+      );
     }
   }
 
@@ -109,6 +109,7 @@ const withFullscreenVideoPlayer = (Component) => {
       video: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired,
     }).isRequired,
+    history: PropTypes.object,
   };
 
   return FullscreenVideoPlayerHoc;
@@ -123,4 +124,5 @@ const composedHoc = compose(
     withFullscreenVideoPlayer
 );
 
+export {withFullscreenVideoPlayer};
 export default composedHoc;

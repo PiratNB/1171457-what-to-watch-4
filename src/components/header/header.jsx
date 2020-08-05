@@ -11,7 +11,7 @@ const Header = (props) => {
   return (
     <header className={`page-header ${className}`}>
       <div className="logo">
-        <Link to="/" className="logo__link">
+        <Link to={AppRoute.ROOT} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
@@ -33,10 +33,6 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  avatar: getUserAvatar(state),
-});
-
 Header.propTypes = {
   className: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
@@ -50,6 +46,10 @@ Header.propTypes = {
 Header.defaultProps = {
   className: `movie-card__head`,
 };
+
+const mapStateToProps = (state) => ({
+  avatar: getUserAvatar(state),
+});
 
 export {Header};
 export default connect(mapStateToProps)(Header);

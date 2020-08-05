@@ -18,6 +18,10 @@ class MyList extends PureComponent {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.loadFavoriteMovies();
+  }
+
   render() {
     const {movies, loadingError, isLoading} = this.props;
     return (
@@ -43,11 +47,18 @@ class MyList extends PureComponent {
       </div>
     );
   }
-
-  componentDidMount() {
-    this.props.loadFavoriteMovies();
-  }
 }
+
+MyList.propTypes = {
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      })
+  ).isRequired,
+  loadingError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  loadFavoriteMovies: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   movies: getFavoriteMovies(state),
@@ -60,17 +71,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DataOperation.loadFavoriteMovies());
   }
 });
-
-MyList.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-      })
-  ).isRequired,
-  loadingError: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  loadFavoriteMovies: PropTypes.func.isRequired,
-};
 
 export {MyList};
 export default connect(mapStateToProps, mapDispatchToProps)(MyList);

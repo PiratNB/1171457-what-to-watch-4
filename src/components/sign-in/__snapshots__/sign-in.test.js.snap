@@ -54,7 +54,7 @@ exports[`Should SignIn render correctly 1`] = `
           <input
             className="sign-in__input"
             id="user-email"
-            name="user-email"
+            name="email"
             placeholder="Email address"
             type="email"
           />
@@ -71,7 +71,7 @@ exports[`Should SignIn render correctly 1`] = `
           <input
             className="sign-in__input"
             id="user-password"
-            name="user-password"
+            name="password"
             placeholder="Password"
             type="password"
           />
@@ -104,7 +104,8 @@ exports[`Should SignIn render correctly 1`] = `
     >
       <a
         className="logo__link logo__link--light"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
