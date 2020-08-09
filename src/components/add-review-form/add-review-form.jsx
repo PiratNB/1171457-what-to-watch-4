@@ -67,7 +67,7 @@ class AddReviewForm extends PureComponent {
               onClick={this.handleSubmit}
               style={{opacity: formValid ? 1 : 0.5}}
             >
-            {isCommentSending ? `Posting...` : `Post`}
+            {isCommentSending ? `Posting....` : `Post`}
             </button>
           </div>
 
