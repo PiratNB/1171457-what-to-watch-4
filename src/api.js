@@ -27,7 +27,7 @@ export const createAPI = (onUnauthorized, onAuthError) => {
   };
 
   const onFail = (err) => {
-    const { response } = err;
+    const {response} = err;
 
     switch (response.status) {
       case Error.BAD_REQUEST:
