@@ -63,11 +63,11 @@ class AddReviewForm extends PureComponent {
             <button
               className="add-review__btn"
               type="submit"
-              disabled={!formValid}
+              disabled={!formValid || isCommentSending}
               onClick={this.handleSubmit}
               style={{opacity: formValid ? 1 : 0.5}}
             >
-            Post
+            {isCommentSending ? `Posting...` : `Post`}
             </button>
           </div>
 
