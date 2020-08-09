@@ -7,29 +7,29 @@ const withActiveElement = (Component) => {
       super(props);
 
       this.state = {
-        activeElement: props.elements[0],
+        activeElement: props.activeTabDefault,
       };
 
-      this._tabClickHandler = this._tabClickHandler.bind(this);
+      this.tabClickHandler = this.tabClickHandler.bind(this);
     }
 
     render() {
       return (
         <Component
           activeElement={this.state.activeElement}
-          onElementClick={this._tabClickHandler}
+          onElementClick={this.tabClickHandler}
           {...this.props}
         />
       );
     }
 
-    _tabClickHandler(tab) {
+    tabClickHandler(tab) {
       this.setState({activeElement: tab});
     }
   }
 
   ActiveElementHoc.propTypes = {
-    elements: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    activeTabDefault: PropTypes.string.isRequired,
   };
 
   return ActiveElementHoc;

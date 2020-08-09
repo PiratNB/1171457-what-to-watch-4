@@ -13,14 +13,14 @@ const Component = () => {
 
 const WrappedComponent = withActiveElement(Component);
 
-it(`Should switch active element`, () => {
+it(`Should set withActiveElements active element`, () => {
   const element = shallow(
       <WrappedComponent
-        elements={[`elem1`, `elem2`, `elem3`]}
+        activeTabDefault={`elem1`}
       />
   );
 
   expect(element.state(`activeElement`)).toBe(`elem1`);
-  element.instance()._tabClickHandler(`elem2`);
+  element.instance().tabClickHandler(`elem2`);
   expect(element.state(`activeElement`)).toBe(`elem2`);
 });

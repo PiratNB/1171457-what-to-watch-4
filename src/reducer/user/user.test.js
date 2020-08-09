@@ -7,11 +7,9 @@ const api = createAPI(() => {});
 describe(`Check user reducer work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
-      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      authorizationStatus: AuthorizationStatus.WAIT_SERVER_RESPONSE,
       avatar: ``,
       loginError: false,
-      incorrectEmail: false,
-      incorrectPassword: false,
     });
   });
 
@@ -112,7 +110,7 @@ describe(`Operation in user reducer work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const logining = Operation.login({
-      login: `Oliver.conner@gmail.com`,
+      email: `Oliver.conner@gmail.com`,
       password: `123ItIsABadPassword`,
     });
 
@@ -125,7 +123,7 @@ describe(`Operation in user reducer work correctly`, () => {
 
     return logining(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(5);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.SET_LOGIN_ERROR_STATUS,
           payload: false,

@@ -1,4 +1,4 @@
-import {TextRating} from "../../const";
+import {ROUTE_ID, TextRating} from "../../const";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 
@@ -31,6 +31,10 @@ export const transformRuntime = (time) => {
   return moment.duration(time, `m`).format(`h[h] mm[m]`);
 };
 
+export const transformDuration = (time) => {
+  return moment.duration(time, `s`).format(`h:mm:ss`);
+};
+
 export const transformDate = (date) => {
   return moment(date).format(`MMMM DD, YYYY`);
 };
@@ -41,13 +45,10 @@ export const splitArrayInHalf = (arr = []) => {
   return {firstHalf, secondHalf};
 };
 
-export const isValidEmail = (email) => {
-  return email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+export const extendObject = (...rest) => {
+  return Object.assign({}, ...rest);
 };
 
-export const isValidPassword = (password) => {
-  return password.length > 2;
-};
-export const extendObject = (a, b) => {
-  return Object.assign({}, a, b);
+export const replaceId = (url, id) => {
+  return url.replace(ROUTE_ID, id);
 };

@@ -27,7 +27,7 @@ export const createAPI = (onUnauthorized, onAuthError) => {
   };
 
   const onFail = (err) => {
-    const {response} = err;
+    const { response } = err;
 
     switch (response.status) {
       case Error.BAD_REQUEST:
@@ -35,11 +35,7 @@ export const createAPI = (onUnauthorized, onAuthError) => {
         break;
       case Error.UNAUTHORIZED:
         onUnauthorized();
-
-        // Бросаем ошибку, потому что нам важно прервать цепочку промисов после запроса авторизации.
-        // Запрос авторизации - это особый случай и важно дать понять приложению, что запрос был неудачным.
         throw err;
-        // case
     }
 
     throw err;

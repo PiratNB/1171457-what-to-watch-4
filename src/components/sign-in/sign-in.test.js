@@ -16,9 +16,8 @@ it(`Should SignIn render correctly`, () => {
         <Provider store={store}>
           <StaticRouter>
             <SignIn
+              userAuthorized={false}
               authError={false}
-              incorrectEmail={false}
-              incorrectPassword={false}
               handleFormSubmit={() => {}}
             />
           </StaticRouter>

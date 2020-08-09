@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
@@ -10,26 +10,32 @@ import {MovieTab, ShowedMovies} from "../../const";
 import MovieList from "../movie-list/movie-list.jsx";
 import {getAddMovieInListStatus, getFilteredMovies} from "../../reducer/app/selectors";
 import MovieHeader from "../movie-header/movie-header.jsx";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
-import {AuthorizationStatus} from "../../reducer/user/user";
 
-const tabs = Object.values(MovieTab);
-
-class MoviePage extends React.PureComponent {
+class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._tabs = tabs;
-
-    this._handlerButtonListClick = this._handlerButtonListClick.bind(this);
+    this.handlerButtonListClick = this.handlerButtonListClick.bind(this);
   }
 
-  _handlerButtonListClick() {
+  componentDidMount() {
+    if (!this.props.comments) {
+      this.props.loadComments(this.props.movie.id);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.movie.id !== this.props.movie.id) {
+      this.props.loadComments(this.props.movie.id);
+    }
+  }
+
+  handlerButtonListClick() {
     this.props.changeFavoriteStatus(this.props.movie);
   }
 
   render() {
-    const {movies, movie, userAuthorized, canAddMovieInList, loadingCommentsError} = this.props;
+    const {movies, movie, canAddMovieInList, loadingCommentsError} = this.props;
     const {title, poster, background, backgroundColor} = movie;
 
     return (
@@ -46,10 +52,9 @@ class MoviePage extends React.PureComponent {
           <div className="movie-card__wrap">
             <MovieHeader
               movie={movie}
-              userAuthorized={userAuthorized}
               needAddReviewButton={true}
               disableAddInList={!canAddMovieInList}
-              onInListButtonClick={this._handlerButtonListClick}
+              onInListButtonClick={this.handlerButtonListClick}
             />
           </div>
         </div>
@@ -64,7 +69,7 @@ class MoviePage extends React.PureComponent {
             <MovieDescription
               movie={this.props.movie}
               comments={this.props.comments}
-              elements={this._tabs}
+              activeTabDefault={MovieTab.OVERVIEW}
               loadingCommentsError={loadingCommentsError}
             />
           </div>
@@ -85,37 +90,7 @@ class MoviePage extends React.PureComponent {
     </>
     );
   }
-
-  componentDidMount() {
-    if (!this.props.comments) {
-      this.props.loadComments(this.props.movie.id);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.movie.id !== this.props.movie.id) {
-      this.props.loadComments(this.props.movie.id);
-    }
-  }
 }
-
-const mapStateToProps = (state, props) => ({
-  movie: getMovieByID(state, {movieId: props.movieId}),
-  movies: getFilteredMovies(state, {movieId: props.movieId}).slice(0, ShowedMovies.ON_MOVIE_PAGE),
-  comments: getCommentsByMovie(state, {movieId: props.movieId}),
-  canAddMovieInList: getAddMovieInListStatus(state),
-  userAuthorized: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
-  loadingCommentsError: getLoadingCommentsError(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadComments(filmId) {
-    dispatch(DataOperation.loadComments(filmId));
-  },
-  changeFavoriteStatus(movie) {
-    dispatch(DataOperation.changeFavoriteStatus(movie));
-  },
-});
 
 MoviePage.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
@@ -155,12 +130,28 @@ MoviePage.propTypes = {
     text: PropTypes.string.isRequired,
     date: PropTypes.instanceOf(Date).isRequired,
   })),
-  userAuthorized: PropTypes.bool.isRequired,
   canAddMovieInList: PropTypes.bool.isRequired,
   loadingCommentsError: PropTypes.bool.isRequired,
   loadComments: PropTypes.func.isRequired,
   changeFavoriteStatus: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state, props) => ({
+  movie: getMovieByID(state, {movieId: props.movieId}),
+  movies: getFilteredMovies(state, {movieId: props.movieId}).slice(0, ShowedMovies.ON_MOVIE_PAGE),
+  comments: getCommentsByMovie(state, {movieId: props.movieId}),
+  canAddMovieInList: getAddMovieInListStatus(state),
+  loadingCommentsError: getLoadingCommentsError(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(filmId) {
+    dispatch(DataOperation.loadComments(filmId));
+  },
+  changeFavoriteStatus(movie) {
+    dispatch(DataOperation.changeFavoriteStatus(movie));
+  },
+});
 
 export {MoviePage};
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
